@@ -4,12 +4,23 @@
     <title>Transmission Game</title>
   </head>
   <body>
-    <h1>G'day Speech</h1>
+    <h1>Gummies Hardware</h1>
 
-    <button id="record">Record</button>
+    <button id="start">Start</button>
+    <button id="pause">Stop</button>
 
-    <p id="diagnostic"></p>
+    <div id="diagnostic" style="height: 500px; overflow: scroll;"></div>
 
+    <audio preload id="are_you_sure" src="audio/are_you_sure.ogg"></audio>
+    <audio preload id="found_it" src="audio/found_it.ogg"></audio>
+    <audio preload id="hello" src="audio/hello.ogg"></audio>
+    <audio preload id="need_help" src="audio/need_help.ogg"></audio>
+    <audio preload id="what_color" src="audio/what_color.ogg"></audio>
+    <audio preload id="who_then" src="audio/who_then.ogg"></audio>
+
+    <script src="/src/nodes.js"></script>
+    <script src="/src/library.js"></script>
+    <script src="/src/game.js"></script>
     <script src="/src/main.js"></script>
   </body>
 </html>
