@@ -7,6 +7,8 @@ class Game {
     this.recognition.interimResults = false;
     this.recognition.maxAlternatives = 1;
 
+    this.waitForLoad();
+
     start.addEventListener('click', this.startPressed.bind(this));
     pause.addEventListener('click', this.pausePressed.bind(this));
 
@@ -21,11 +23,35 @@ class Game {
     this.recognition.addEventListener('result', this.recognitionResult.bind(this));
   }
 
+  waitForLoad() {
+    this.loading = true;
+    phone.classList.add('loading');
+
+    for (let audio of document.querySelectorAll('audio')) {
+      if (audio.duration == 0) {
+        setTimeout(this.waitForLoad.bind(this), 300);
+        return;
+      }
+    }
+
+    this.loading = false;
+    phone.classList.remove('loading');
+
+    setTimeout(() => {
+      if (this.gameStarted) {
+        return; // the game has already started don't ring
+      }
+
+      this.loopRinging();
+    }, 3000);
+  }
+
   startGame() {
     if (this.waitingForAnswer) {
       this.answeredCharacter();
       return;
     }
+    this.gameStarted = true;
     this.currentMessage = this.library.getRoot();
     this.playMessage();
     phone.classList.add('call-active');
@@ -41,6 +67,7 @@ class Game {
     this.timeoutFn = null;
     this.currentPlayID = Math.random();
     this.currentMessage.audio().pause();
+    this.gameStarted = false;
     document.body.classList.remove('phone-only');
     phone.classList.remove('call-active');
     document.getElementById('call-info').textContent = '';
@@ -132,10 +159,6 @@ class Game {
   }
 
   startCharacter(identifier) {
-    // first we have to hang up the old character
-
-    // TODO: Play hangup sound
-
     phone.classList.remove('call-active');
     phone.classList.add('call-ended');
 
@@ -143,7 +166,7 @@ class Game {
       let character = this.library.get(identifier);
       character.updatePhone();
 
-      // TODO: Play dial sound
+      this.loopRinging();
 
       this.waitingForAnswer = true;
     }, 1000); // is this long enough? too long?
@@ -157,6 +180,10 @@ class Game {
     this.runCallTimer();
 
     log('Answered character');
+  }
+
+  loopRinging() {
+    // TODO: play dial sound
   }
 
   shouldBlockRecognition() {

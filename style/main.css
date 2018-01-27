@@ -307,3 +307,16 @@ body.no-support #support-help {
 #phone.call-active #call-info {
   display: block;
 }
+
+
+#phone #loading-indicator {
+  display: none;
+}
+
+#phone.loading #loading-indicator {
+  display: block;
+}
+
+#phone.loading #caller-details, #phone.loading #start, #phone.loading #pause {
+  display: none;
+}
