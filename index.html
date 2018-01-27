@@ -2,14 +2,68 @@
 <html>
   <head>
     <title>Transmission Game</title>
+    <link rel="stylesheet" href="style/main.css">
   </head>
   <body>
-    <h1>Gummies Hardware</h1>
+    <aside id="about">
+      <h1>
+        <span id="logo-gummies">G<small>ummies</small></span> <br>
+        <span id="logo-hardware">Hardware</span>
+      </h1>
+      <p>
+        This is a game about being the boss, except you're not at work.
+        So, uh, I guess you're going to have to <strong>use the phone</strong>.
+        Good luck.
+      </p>
+      <p>
+        Unfortunately the Web Speech API only works in Firefox and Chrome.
+        If you have an Android phone, it will work in Chrome there too.
+      </p>
+      <div class="icons">
+        <figure>
+          <img src="images/headphones.svg">
+          <figcaption>
+            Wear Headphones
+          </figcaption>
+        </figure>
 
-    <button id="start">Start</button>
-    <button id="pause">Stop</button>
+        <figure>
+          <img src="images/sphere.svg">
+          <figcaption>
+            Use Chrome or Firefox
+          </figcaption>
+        </figure>
+      </div>
 
-    <div id="diagnostic" style="height: 500px; overflow: scroll;"></div>
+    </aside>
+
+    <article id="phone">
+      <header id="caller-details">
+        <h1 id="caller-name">Jimmy</h1>
+        <h2 id="caller-role">Gummies Casual</h2>
+        <img id="caller-image" src="images/jimmy.png">
+      </header>
+
+      <p id="call-info"></p>
+
+      <button id="start">
+        <span>
+          <img src="images/phone.svg">
+        </span>
+        Start
+      </button>
+      <button id="pause">
+        <span>
+          <img src="images/hangup.svg">
+        </span>
+        Stop
+      </button>
+    </article>
+
+    <button id="diagnosticsButton" style="position: fixed; bottom: 10px; right: 0px;">
+      Diagnostics
+    </button>
+    <div id="diagnostic" style="height: 300px; width: 100%; overflow: scroll; display: none; position: fixed; bottom: 0px; right: 0px; background: white;"></div>
 
     <audio preload id="are_you_sure" src="audio/are_you_sure.ogg"></audio>
     <audio preload id="found_it" src="audio/found_it.ogg"></audio>

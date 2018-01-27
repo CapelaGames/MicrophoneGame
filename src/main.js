@@ -21,6 +21,10 @@ function log() {
 }
 window.log = log;
 
+diagnosticsButton.onclick = function() {
+  diagnostic.style.display = 'block';
+}
+
 messageLibrary.setRoot('hello');
 messageLibrary.add('hello', new MessageNode(
   'hello',
