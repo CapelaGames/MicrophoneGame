@@ -31,6 +31,8 @@ class Game {
     phone.classList.add('call-active');
     this.runCallTimer();
     log('Starting game')
+
+    // TODO: Don't start game until we have microphone permissions
   }
 
   pauseGame() {
@@ -41,7 +43,9 @@ class Game {
     this.currentMessage.audio().pause();
     document.body.classList.remove('phone-only');
     phone.classList.remove('call-active');
-    callInfo.textContent = '';
+    document.getElementById('call-info').textContent = '';
+
+    // TODO: Reset all the audio elements
   }
 
   runCallTimer() {
@@ -49,6 +53,10 @@ class Game {
     callInfo.textContent = '00:00';
     var time = 0;
     var updateTime = () => {
+      if (this.paused) {
+        return;
+      }
+
       time += 1;
       let seconds = time % 60 < 10 ? `0${time % 60}` : `${time % 60}`;
       let minutes = Math.floor(time / 60 < 10) ? `0${Math.floor(time / 60)}` : `${Math.floor(time / 60)}`; // I was lazy I'm sorry
