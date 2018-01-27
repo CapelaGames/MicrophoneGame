@@ -3,6 +3,7 @@
   <head>
     <title>Transmission Game</title>
     <link rel="stylesheet" href="style/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <aside id="about">
@@ -14,10 +15,6 @@
         This is a game about being the boss, except you're not at work.
         So, uh, I guess you're going to have to <strong>use the phone</strong>.
         Good luck.
-      </p>
-      <p>
-        Unfortunately the Web Speech API only works in Firefox and Chrome.
-        If you have an Android phone, it will work in Chrome there too.
       </p>
       <div class="icons">
         <figure>
@@ -34,6 +31,15 @@
           </figcaption>
         </figure>
       </div>
+
+      <a id="ready" href="#phone">
+        I am ready
+      </a>
+      <p id="support-help">
+        <strong>Your browser isn't supported.</strong><br><br><!-- I apologise for this -->
+        Unfortunately the Web Speech API only works in Firefox and Chrome.
+        If you have an Android phone, it will work in Chrome there too.
+      </p>
 
     </aside>
 
@@ -56,7 +62,7 @@
         <span>
           <img src="images/hangup.svg">
         </span>
-        Stop
+        Give Up
       </button>
     </article>
 

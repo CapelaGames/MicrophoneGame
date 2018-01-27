@@ -1,9 +1,14 @@
-window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-window.SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
-window.SpeechRecognitionEvent = window.SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+window.SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
+window.SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
-window.messageLibrary = new MessageLibrary();
-window.game = new Game(messageLibrary);
+if (window.SpeechRecognition) {
+  window.messageLibrary = new MessageLibrary();
+  window.game = new Game(messageLibrary);
+} else {
+  document.body.classList.add('no-support');
+}
+
 
 function log() {
   let args = [];
@@ -23,6 +28,10 @@ window.log = log;
 
 diagnosticsButton.onclick = function() {
   diagnostic.style.display = 'block';
+}
+
+ready.onclick = function() {
+  document.body.classList.add('phone-only');
 }
 
 messageLibrary.setRoot('hello');

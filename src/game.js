@@ -24,6 +24,8 @@ class Game {
   startGame() {
     this.currentMessage = this.messageLibrary.getRoot();
     this.playMessage();
+    phone.classList.add('call-active');
+    this.runCallTimer();
     log('Starting game')
   }
 
@@ -32,6 +34,23 @@ class Game {
     this.recognition.stop();
     this.timeoutFn = null;
     this.currentMessage.audio().pause();
+    document.body.classList.remove('phone-only');
+  }
+
+  runCallTimer() {
+    var callInfo = document.getElementById('call-info');
+    callInfo.textContent = '00:00';
+    var time = 0;
+    var updateTime = () => {
+      time += 1;
+      let seconds = time % 60 < 10 ? `0${time % 60}` : `${time % 60}`;
+      let minutes = Math.floor(time / 60 < 10) ? `0${Math.floor(time / 60)}` : `${Math.floor(time / 60)}`; // I was lazy I'm sorry
+      callInfo.textContent = `${minutes}:${seconds}`;
+      if (!this.paused) {
+        setTimeout(updateTime, 1000);
+      }
+    };
+    setTimeout(updateTime, 1000);
   }
 
   playMessage() {
