@@ -1,6 +1,6 @@
 class Game {
-  constructor(messageLibrary) {
-    this.messageLibrary = messageLibrary;
+  constructor(library) {
+    this.library = library;
     this.recognition = new SpeechRecognition();
     this.recognition.continuous = false;
     this.recognition.lang = 'en-AU';
@@ -22,7 +22,11 @@ class Game {
   }
 
   startGame() {
-    this.currentMessage = this.messageLibrary.getRoot();
+    if (this.waitingForAnswer) {
+      this.answeredCharacter();
+      return;
+    }
+    this.currentMessage = this.library.getRoot();
     this.playMessage();
     phone.classList.add('call-active');
     this.runCallTimer();
@@ -33,8 +37,11 @@ class Game {
     this.paused = true;
     this.recognition.stop();
     this.timeoutFn = null;
+    this.currentPlayID = Math.random();
     this.currentMessage.audio().pause();
     document.body.classList.remove('phone-only');
+    phone.classList.remove('call-active');
+    callInfo.textContent = '';
   }
 
   runCallTimer() {
@@ -54,6 +61,10 @@ class Game {
   }
 
   playMessage() {
+    if (this.waitingForAnswer) {
+      return;
+    }
+
     let audio = this.currentMessage.audio();
     if (audio.duration == 0) { // not loaded
       setTimeout(this.playMessage.bind(this), 100);
@@ -90,12 +101,59 @@ class Game {
       this.pauseGame();
       return;
     }
-    this.currentMessage = this.messageLibrary.getMessage(identifier);
+    this.currentMessage = this.library.get(identifier);
+    if (this.currentMessage.hasCommand()) {
+      this.processCommands(this.currentMessage.getCommand());
+    }
     this.playMessage();
 
     log('Playing', identifier);
   }
 
+  processCommands(commands) {
+    for (let command of commands.split(',')) {
+      this.processCommand(command);
+    }
+  }
+
+  processCommand(command) {
+    let args = command.split(':');
+    if (args[0] in this) {
+      this[args[0]].apply(this, args.slice(1))
+    }
+  }
+
+  startCharacter(identifier) {
+    // first we have to hang up the old character
+
+    // TODO: Play hangup sound
+
+    phone.classList.remove('call-active');
+    phone.classList.add('call-ended');
+
+    setTimeout(() => {
+      let character = this.library.get(identifier);
+      character.updatePhone();
+
+      // TODO: Play dial sound
+
+      this.waitingForAnswer = true;
+    }, 1000); // is this long enough? too long?
+
+    log('Character calling', identifier);
+  }
+
+  answeredCharacter() {
+    this.waitingForAnswer = false;
+    phone.classList.add('call-active');
+    this.runCallTimer();
+
+    log('Answered character');
+  }
+
+  shouldBlockRecognition() {
+    return this.paused || this.playingAudio || this.waitingForAnswer;
+  }
 
   //
   // Event Handlers
@@ -118,9 +176,10 @@ class Game {
 
   recognitionEnd(event) {
     log('Recognition Ended');
-    if (!this.paused && !this.playingAudio) {
-      this.recognition.start();
+    if (this.shouldBlockRecognition()) {
+      return;
     }
+    this.recognition.start();
   }
 
   recognitionSoundStart(event) {
@@ -143,7 +202,7 @@ class Game {
   recognitionNoMatch(event) {
     log('No match');
 
-    if (this.playingAudio) {
+    if (this.shouldBlockRecognition()) {
       return;
     }
     this.nextMessage('__default');
@@ -152,14 +211,14 @@ class Game {
   recognitionError(event) {
     log('Recognition error', event.error);
 
-    if (this.playingAudio) {
+    if (this.shouldBlockRecognition()) {
       return;
     }
     this.nextMessage('__default');
   }
 
   recognitionResult(event) {
-    if (this.playingAudio) {
+    if (this.shouldBlockRecognition()) {
       return;
     }
 

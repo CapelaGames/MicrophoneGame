@@ -1,4 +1,4 @@
-class MessageLibrary {
+class Library {
   constructor() {
     this.messages = {};
   }
@@ -7,7 +7,7 @@ class MessageLibrary {
     this.messages[identifier] = message;
   }
 
-  getMessage(identifier) {
+  get(identifier) {
     return this.messages[identifier];
   }
 
@@ -16,6 +16,6 @@ class MessageLibrary {
   }
 
   getRoot() {
-    return this.getMessage(this.root);
+    return this.get(this.root);
   }
 }

@@ -1,15 +1,38 @@
+class CharacterNode {
+  constructor(name, role, src) {
+    this.name = name;
+    this.role = role;
+    this.src = src;
+  }
+
+  updatePhone() {
+    document.getElementById('caller-name').textContent = this.name;
+    document.getElementById('caller-role').textContent = this.role;
+    document.getElementById('caller-image').src = this.src;
+  }
+}
+
 class MessageNode {
-  constructor(audioId, response) {
+  constructor(audioId, response, command) {
     this.audioId = audioId;
     this.response = response;
+    this.command = command;
   }
 
   audio() {
     return document.getElementById(this.audioId);
   }
-  
+
   nextMessage(transcript) {
     return this.response.nextMessage(transcript);
+  }
+
+  hasCommand() {
+    return !!this.command;
+  }
+
+  getCommand() {
+    return this.command;
   }
 }
 

@@ -75,6 +75,11 @@ body {
     margin: 20px;
   }
 
+#credits {
+  font-size: 14px;
+  margin-top: 44px;
+}
+
 #about strong {
   background: #da291c;
   padding: 0 4px;
@@ -234,6 +239,7 @@ body {
     border: 0;
     box-shadow: none;
     height: 100vh;
+    max-height: inherit;
     display: none;
     margin: 0;
   }
@@ -256,7 +262,9 @@ body {
     text-decoration: none;
     font-weight: bold;
     text-align: center;
-    margin: 24px 0;
+    margin: 24px auto;
+    border: none;
+    display: block;
   }
 }
 
