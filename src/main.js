@@ -351,8 +351,8 @@ library.add('11_tea_or_coffee', new MessageNode(
   '11_tea_or_coffee',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['tea']), '12_making_it_TEA'],
-      [new ResponseOption(['coffee', 'beans', 'espresso', 'bean juice', 'brown water']), '12_making_it_COFFEE'],
+      [new ResponseOption(['tea', 't', 'the']), '12_making_it_TEA'],
+      [new ResponseOption(['coffee', 'beans', 'espresso', 'bean juice', 'brown water', 'cough']), '12_making_it_COFFEE'],
     ]),
     '12_making_it_TEA'
   ),
