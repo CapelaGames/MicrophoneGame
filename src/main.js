@@ -133,10 +133,12 @@ library.add('03_inspector', new MessageNode(
 library.add('04_two_things', new MessageNode(
   '04_two_things',
   new ResponseNode(
-    new Map([]),
+    new Map([
+      [new ResponseOption(['clean', 'safe']), '05_clean_and_safe'],
+    ]),
     '05_clean_and_safe'
   ),
-  'startCall:jimmy,skipTimeout',
+  'startCall:jimmy',
 ));
 
 //
