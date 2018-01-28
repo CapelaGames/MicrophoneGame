@@ -145,10 +145,6 @@ class Game {
       log('Error, no audio for message:', this.currentMessage);
       return;
     }
-    if (audio.duration == 0 || audio.duration == NaN) { // not loaded
-      setTimeout(this.playMessage.bind(this), 100);
-      return;
-    }
 
     this.playingAudio = true;
 
