@@ -8,7 +8,7 @@ Unfortunately this uses "secure" APIs and so you need to serve it from a server.
 
 If you just want to play the game go to:
 
-[TODO: URL]
+https://capelagames.github.io/MicrophoneGame/
 
 Otherwise, you'll need Python 3.6+ (most Python 3s should work actually) to serve the index.
 

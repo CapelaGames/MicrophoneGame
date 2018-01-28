@@ -26,6 +26,7 @@ class Game {
   waitForLoad() {
     this.loading = true;
     phone.classList.add('loading');
+    log('Loading...');
 
     for (let audio of document.querySelectorAll('audio')) {
       if (audio.duration == 0) {
@@ -36,6 +37,7 @@ class Game {
 
     this.loading = false;
     phone.classList.remove('loading');
+    log('Loaded!');
 
     setTimeout(() => {
       if (this.gameStarted) {
@@ -62,6 +64,8 @@ class Game {
   }
 
   pauseGame() {
+    // this method lies, it actually resets the whole game so yeah
+
     this.paused = true;
     this.recognition.stop();
     this.timeoutFn = null;
@@ -72,7 +76,11 @@ class Game {
     phone.classList.remove('call-active');
     document.getElementById('call-info').textContent = '';
 
-    // TODO: Reset all the audio elements
+    for (let audio of document.querySelectorAll('audio')) {
+      audio.fastSeek(0);
+    }
+
+    log('Game reset');
   }
 
   runCallTimer() {
@@ -137,6 +145,10 @@ class Game {
       return;
     }
     this.currentMessage = this.library.get(identifier);
+    if (!this.currentMessage) {
+      log('Error, missing message:', identifier);
+      return;
+    }
     if (this.currentMessage.hasCommand()) {
       this.processCommands(this.currentMessage.getCommand());
     }
@@ -154,7 +166,13 @@ class Game {
   processCommand(command) {
     let args = command.split(':');
     if (args[0] in this) {
-      this[args[0]].apply(this, args.slice(1))
+      let fn = this[args[0]];
+      if (fn) {
+        fn.apply(this, args.slice(1))
+        log('Running command:', command)
+      } else {
+        log('Error command missing:', command)
+      }
     }
   }
 
