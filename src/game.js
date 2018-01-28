@@ -54,10 +54,10 @@ class Game {
     this.loadingLoops += 1;
 
     for (let audio of document.querySelectorAll('audio')) {
-      if (this.loadingLoops > 19) {
+      if (this.loadingLoops > 10) {
         loadingEl.textContent = 'Stopping preload, experience may be janky.';
       }
-      if (this.loadingLoops > 20) {
+      if (this.loadingLoops > 11) {
         break; // fuck it we'll do it live
       }
       if (audio.readyState < 1) {
