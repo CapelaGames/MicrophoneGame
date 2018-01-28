@@ -68,7 +68,6 @@ class Game {
 
     this.paused = true;
     this.recognition.stop();
-    this.timeoutFn = null;
     this.currentPlayID = Math.random();
     this.currentMessage.audio().pause();
     this.gameStarted = false;
@@ -115,26 +114,26 @@ class Game {
     }
 
     this.playingAudio = true;
-    // When the audio finishes playing
-    setTimeout(() => {
-      this.playingAudio = false;
-      this.recognition.start();
-    }, (1000 * audio.duration) - 500);
-
-    audio.play();
-    this.timeoutFn = () => {
-      log('Response timed out');
-      this.nextMessage('__default');
-    };
 
     let playID = Math.random();
     this.currentPlayID = playID;
-    setTimeout(() => {
+    let timeoutFn = () => {
       // Check if we've moved on and we still want to timeout
-      if (playID === this.currentPlayID && this.timeoutFn) {
-        this.timeoutFn();
+      if (playID === this.currentPlayID) {
+        log('Response timed out');
+        this.nextMessage('__default');
       }
-    }, 4000 + (1000 * audio.duration)); // Timeout
+    }
+
+    // When the audio finishes playing
+    audio.onended = (event) => {
+      this.playingAudio = false;
+      this.recognition.start();
+      audio.onended = () => {};
+
+      setTimeout(timeoutFn, 4000); // Timeout
+    };
+    audio.play();
   }
 
   nextMessage(transcript) {
@@ -245,7 +244,6 @@ class Game {
 
   recognitionSpeechStart(event) {
     log('Speech Started');
-    this.timeoutFn = null;
   }
 
   recognitionSpeechEnd(event) {
