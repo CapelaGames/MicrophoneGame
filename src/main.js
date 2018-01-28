@@ -441,7 +441,7 @@ library.add('00_blooper_2', new MessageNode(
   '00_blooper_2',
   new ResponseNode(
     new Map([]),
-    '00_blooper_2'
+    '00_blooper_3'
   ),
 ));
 
@@ -449,7 +449,7 @@ library.add('00_blooper_3', new MessageNode(
   '00_blooper_3',
   new ResponseNode(
     new Map([]),
-    '00_blooper_3'
+    '00_blooper_4'
   ),
 ));
 
@@ -457,6 +457,6 @@ library.add('00_blooper_4', new MessageNode(
   '00_blooper_4',
   new ResponseNode(
     new Map([]),
-    '00_blooper_4'
+    '__finish'
   ),
 ));
