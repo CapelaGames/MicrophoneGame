@@ -9,6 +9,7 @@ class Game {
 
     this.ringingAudio = document.getElementById('00_phone');
 
+    this.loadingLoops = 0;
     this.waitForLoad();
 
     start.addEventListener('click', this.startPressed.bind(this));
@@ -26,13 +27,32 @@ class Game {
   }
 
   waitForLoad() {
+    let loadingEl = document.getElementById('loading-indicator');
     this.loading = true;
     phone.classList.add('loading');
     log('Loading...');
 
+    let loadingMessages = [
+      'Loading...',
+      'Still loading...',
+      'There\'s a lot of audio sorry...',
+      'Are you in australia?',
+      'The internet nots great there so yeah...',
+      'Okay I\'m sorry about this really.',
+      'So what are you up to?',
+      'Yep just waiting for it to load hey.',
+      'Yeah me too.',
+      'Okay surely its done now?',
+      'We\'re going to run out of messages!',
+      'Thats it time to loop.',
+    ]
+
+    loadingEl.textContent = loadingMessages[this.loadingLoops % loadingMessages.length];
+    this.loadingLoops += 1;
+
     for (let audio of document.querySelectorAll('audio')) {
-      if (audio.readyState < 4) {
-        setTimeout(this.waitForLoad.bind(this), 300);
+      if (audio.readyState < 3) {
+        setTimeout(this.waitForLoad.bind(this), 1000);
         return;
       }
     }
