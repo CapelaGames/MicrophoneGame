@@ -65,21 +65,24 @@ library.add('01A_RED_just_paid_me', new MessageNode(
   new ResponseNode(
     new Map([]),
     '02_where_are_lawnmowers'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('01B_GREEN_yelling_about_the_paint', new MessageNode(
   '01B_GREEN_yelling_about_the_paint',
   new ResponseNode(
     new Map([]),
     '02_where_are_lawnmowers'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('01C_OTHER_i_think_its_green', new MessageNode(
   '01C_OTHER_i_think_its_green',
   new ResponseNode(
     new Map([]),
     '02_where_are_lawnmowers'
-  )
+  ),
+  'skipTimeout'
 ));
 
 //
@@ -100,14 +103,16 @@ library.add('02A_thanks_boss', new MessageNode(
   new ResponseNode(
     new Map([]),
     '03_inspector'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('02B_found_it_himself', new MessageNode(
   '02B_found_it_himself',
   new ResponseNode(
     new Map([]),
     '03_inspector'
-  )
+  ),
+  'skipTimeout'
 ));
 
 //

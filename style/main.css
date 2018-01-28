@@ -124,7 +124,7 @@ body {
 #caller-details {
   display: grid;
   grid-template-columns: 1fr 100px;
-  grid-template-rows: 60px 40px;
+  grid-template-rows: 50px 50px;
 }
 
 #caller-details h1, #caller-details h2 {
@@ -135,7 +135,7 @@ body {
 }
 
 #caller-details h1 {
-  font-size: 44px;
+  font-size: 40px;
   margin: 0 ;
 }
 
@@ -318,5 +318,13 @@ body.no-support #support-help {
 }
 
 #phone.loading #caller-details, #phone.loading #start, #phone.loading #pause {
+  display: none;
+}
+
+#phone.call-ended #start {
+  display: none;
+}
+
+#phone.call-ended #pause {
   display: none;
 }

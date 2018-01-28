@@ -7,6 +7,8 @@ class Game {
     this.recognition.interimResults = false;
     this.recognition.maxAlternatives = 1;
 
+    this.ringingAudio = document.getElementById('00_phone');
+
     this.waitForLoad();
 
     start.addEventListener('click', this.startPressed.bind(this));
@@ -53,7 +55,10 @@ class Game {
       this.answeredCharacter();
       return;
     }
+    this.ringingAudio.pause();
+    this.ringingAudio.currentTime = 0;
     this.gameStarted = true;
+    this.skipNextTimeout = false;
     this.scores = {};
     this.currentMessage = this.library.getRoot();
     this.playMessage();
@@ -70,14 +75,17 @@ class Game {
     this.paused = true;
     this.recognition.stop();
     this.currentPlayID = Math.random();
-    this.currentMessage.audio().pause();
+    if (this.currentMessage) {
+      this.currentMessage.audio().pause();
+    }
+    this.ringingAudio.pause();
     this.gameStarted = false;
     document.body.classList.remove('phone-only');
     phone.classList.remove('call-active');
     document.getElementById('call-info').textContent = '';
 
     for (let audio of document.querySelectorAll('audio')) {
-      audio.fastSeek(0);
+      audio.currentTime = 0;
     }
 
     log('Game reset');
@@ -92,13 +100,16 @@ class Game {
         return;
       }
 
+      if (this.waitingForAnswer) {
+        return;
+      }
+
       time += 1;
       let seconds = time % 60 < 10 ? `0${time % 60}` : `${time % 60}`;
       let minutes = Math.floor(time / 60 < 10) ? `0${Math.floor(time / 60)}` : `${Math.floor(time / 60)}`; // I was lazy I'm sorry
       callInfo.textContent = `${minutes}:${seconds}`;
-      if (!this.paused) {
-        setTimeout(updateTime, 1000);
-      }
+
+      setTimeout(updateTime, 1000);
     };
     setTimeout(updateTime, 1000);
   }
@@ -137,7 +148,13 @@ class Game {
       this.recognition.start();
       audio.onended = () => {};
 
-      setTimeout(timeoutFn, 3000); // Timeout
+      if (this.skipNextTimeout) {
+        this.skipNextTimeout = false;
+        setTimeout(timeoutFn, 0); // Time out instantly
+      } else {
+        setTimeout(timeoutFn, 3000); // Timeout
+      }
+
     };
     audio.play();
   }
@@ -184,26 +201,34 @@ class Game {
     }
   }
 
-  startCharacter(identifier) {
+  startCall(identifier) {
+    this.waitingForAnswer = true;
     phone.classList.remove('call-active');
     phone.classList.add('call-ended');
+
+    var callInfo = document.getElementById('call-info');
+    callInfo.textContent = 'Call Ended';
 
     setTimeout(() => {
       let character = this.library.get(identifier);
       character.updatePhone();
 
-      this.loopRinging();
+      phone.classList.remove('call-ended');
+      callInfo.textContent = '';
 
-      this.waitingForAnswer = true;
-    }, 1000); // is this long enough? too long?
+      this.loopRinging();
+    }, 3000); // is this long enough? too long?
 
     log('Character calling', identifier);
   }
 
   answeredCharacter() {
     this.waitingForAnswer = false;
+    this.ringingAudio.pause();
+    this.ringingAudio.currentTime = 0;
     phone.classList.add('call-active');
     this.runCallTimer();
+    this.playMessage();
 
     log('Answered character');
   }
@@ -212,8 +237,12 @@ class Game {
     this.scores[test] = score;
   }
 
+  skipTimeout() {
+    this.skipNextTimeout = true;
+  }
+
   loopRinging() {
-    // TODO: play dial sound
+    this.ringingAudio.play();
   }
 
   shouldBlockRecognition() {
