@@ -27,6 +27,9 @@ class Game {
   }
 
   waitForLoad() {
+    // Request permissions straight away
+    navigator.mediaDevices.getUserMedia({audio: true})
+
     let loadingEl = document.getElementById('loading-indicator');
     this.loading = true;
     phone.classList.add('loading');
@@ -60,7 +63,9 @@ class Game {
     this.loading = false;
     log('Loaded!');
 
-    // Request permissions
+    loadingEl.textContent = 'Hijacking the microphone...';
+
+    // Check we have those permissions
     navigator.mediaDevices.getUserMedia({audio: true}).then(() => {
       setTimeout(() => {
         if (this.gameStarted) {
