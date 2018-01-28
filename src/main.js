@@ -136,7 +136,7 @@ library.add('04_two_things', new MessageNode(
     new Map([]),
     '05_clean_and_safe'
   ),
-  'startCall:jimmy',
+  'startCall:jimmy,skipTimeout',
 ));
 
 //
@@ -297,7 +297,7 @@ library.add('09_inspector_coming_soon', new MessageNode(
     new Map([]),
     '10_what_should_i_ditch'
   ),
-  'startCall:inspector',
+  'startCall:inspector,skipTimeout',
 ));
 
 
@@ -393,14 +393,16 @@ library.add('13A_made_some_tea', new MessageNode(
   new ResponseNode(
     new Map([]),
     '__score'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('13B_made_some_coffee', new MessageNode(
   '13B_made_some_coffee',
   new ResponseNode(
     new Map([]),
     '__score'
-  )
+  ),
+  'skipTimeout'
 ));
 
 //
@@ -412,6 +414,7 @@ library.add('00_lose_1_lose_2', new MessageNode(
     new Map([]),
     '00_end_state'
   ),
+  'skipTimeout'
 ));
 library.add('00_lose_1_win_2', new MessageNode(
   '00_lose_1_win_2',
@@ -419,6 +422,7 @@ library.add('00_lose_1_win_2', new MessageNode(
     new Map([]),
     '00_end_state'
   ),
+  'skipTimeout'
 ));
 library.add('00_win_1_lose_2', new MessageNode(
   '00_win_1_lose_2',
@@ -426,6 +430,7 @@ library.add('00_win_1_lose_2', new MessageNode(
     new Map([]),
     '00_end_state'
   ),
+  'skipTimeout'
 ));
 library.add('00_win_1_win_2', new MessageNode(
   '00_win_1_win_2',
@@ -433,6 +438,7 @@ library.add('00_win_1_win_2', new MessageNode(
     new Map([]),
     '00_end_state'
   ),
+  'skipTimeout'
 ));
 
 library.add('00_end_state', new MessageNode(
@@ -440,7 +446,8 @@ library.add('00_end_state', new MessageNode(
   new ResponseNode(
     new Map([]),
     '00_post_end_state'
-  )
+  ),
+  'skipTimeout'
 ));
 
 library.add('00_post_end_state', new MessageNode(
