@@ -54,6 +54,7 @@ class Game {
       return;
     }
     this.gameStarted = true;
+    this.scores = {};
     this.currentMessage = this.library.getRoot();
     this.playMessage();
     phone.classList.add('call-active');
@@ -108,6 +109,10 @@ class Game {
     }
 
     let audio = this.currentMessage.audio();
+    if (!audio) {
+      log('Error, no audio for message:', this.currentMessage);
+      return;
+    }
     if (audio.duration == 0) { // not loaded
       setTimeout(this.playMessage.bind(this), 100);
       return;
@@ -132,7 +137,7 @@ class Game {
       this.recognition.start();
       audio.onended = () => {};
 
-      setTimeout(timeoutFn, 4000); // Timeout
+      setTimeout(timeoutFn, 3000); // Timeout
     };
     audio.play();
   }
@@ -143,6 +148,9 @@ class Game {
       log('Game Over');
       this.pauseGame();
       return;
+    }
+    if (identifier == '__score') {
+      identifier = `00_${this.scores['1']}_1_${this.scores['2']}_2`;
     }
     this.currentMessage = this.library.get(identifier);
     if (!this.currentMessage) {
@@ -198,6 +206,10 @@ class Game {
     this.runCallTimer();
 
     log('Answered character');
+  }
+
+  scoreTest(test, score) {
+    this.scores[test] = score;
   }
 
   loopRinging() {

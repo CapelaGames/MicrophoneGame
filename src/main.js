@@ -152,7 +152,7 @@ library.add('05A_thanks_boss', new MessageNode(
   new ResponseNode(
     new Map([
       [new ResponseOption(['outside', 'out']), '06_okay_great_OUTSIDE'],
-      [new ResponseOption(['inside', 'in']), '06_okay_great_INSIDE'],
+      [new ResponseOption(['inside', 'in', 'coincide']), '06_okay_great_INSIDE'],
     ]),
     '06_good_inside'
   )
@@ -358,7 +358,7 @@ library.add('11_tea_or_coffee', new MessageNode(
   ),
 ));
 library.add('12_making_it_COFFEE', new MessageNode(
-  '12_making_it_COFFEE',
+  '12_making_it',
   new ResponseNode(
     new Map([]),
     '13B_made_some_coffee'
@@ -366,7 +366,7 @@ library.add('12_making_it_COFFEE', new MessageNode(
   'scoreTest:2:win'
 ));
 library.add('12_making_it_TEA', new MessageNode(
-  '12_making_it_TEA',
+  '12_making_it',
   new ResponseNode(
     new Map([]),
     '13A_made_some_tea'
