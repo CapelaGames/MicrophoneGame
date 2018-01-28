@@ -261,6 +261,14 @@ class Game {
     log('Answered character');
   }
 
+  hangUpForever() {
+    phone.classList.remove('call-active');
+    phone.classList.add('call-ended');
+
+    var callInfo = document.getElementById('call-info');
+    callInfo.textContent = 'Call Ended';
+  }
+
   scoreTest(test, score) {
     this.scores[test] = score;
   }

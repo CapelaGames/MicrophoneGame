@@ -439,9 +439,17 @@ library.add('00_end_state', new MessageNode(
   '00_end_state',
   new ResponseNode(
     new Map([]),
+    '00_post_end_state'
+  )
+));
+
+library.add('00_post_end_state', new MessageNode(
+  '00_post_end_state',
+  new ResponseNode(
+    new Map([]),
     '00_blooper_1'
   ),
-  'runCredits'
+  'hangUpForever'
 ));
 
 library.add('00_blooper_1', new MessageNode(
