@@ -37,22 +37,22 @@ class Game {
       'Still loading...',
       'There\'s a lot of audio sorry...',
       'Are you in australia?',
-      'The internet nots great there so yeah...',
+      'The internets not great there so yeah...',
       'Okay I\'m sorry about this really.',
       'So what are you up to?',
       'Yep just waiting for it to load hey.',
       'Yeah me too.',
       'Okay surely its done now?',
       'We\'re going to run out of messages!',
-      'Thats it time to loop.',
+      'Thats it. Time to loop.',
     ]
 
     loadingEl.textContent = loadingMessages[this.loadingLoops % loadingMessages.length];
     this.loadingLoops += 1;
 
     for (let audio of document.querySelectorAll('audio')) {
-      if (audio.readyState < 3) {
-        setTimeout(this.waitForLoad.bind(this), 1000);
+      if (audio.readyState < 1) {
+        setTimeout(this.waitForLoad.bind(this), 2000);
         return;
       }
     }
