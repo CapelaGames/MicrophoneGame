@@ -31,7 +31,7 @@ class Game {
     log('Loading...');
 
     for (let audio of document.querySelectorAll('audio')) {
-      if (audio.duration == 0) {
+      if (audio.readyState < 4) {
         setTimeout(this.waitForLoad.bind(this), 300);
         return;
       }
@@ -125,7 +125,7 @@ class Game {
       log('Error, no audio for message:', this.currentMessage);
       return;
     }
-    if (audio.duration == 0) { // not loaded
+    if (audio.duration == 0 || audio.duration == NaN) { // not loaded
       setTimeout(this.playMessage.bind(this), 100);
       return;
     }
