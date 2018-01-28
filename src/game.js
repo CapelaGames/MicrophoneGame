@@ -38,16 +38,19 @@ class Game {
     }
 
     this.loading = false;
-    phone.classList.remove('loading');
     log('Loaded!');
 
-    setTimeout(() => {
-      if (this.gameStarted) {
-        return; // the game has already started don't ring
-      }
+    // Request permissions
+    navigator.mediaDevices.getUserMedia({audio: true}).then(() => {
+      setTimeout(() => {
+        if (this.gameStarted) {
+          return; // the game has already started don't ring
+        }
 
-      this.loopRinging();
-    }, 3000);
+        this.loopRinging();
+        phone.classList.remove('loading');
+      }, 2000);
+    });
   }
 
   startGame() {
@@ -65,8 +68,6 @@ class Game {
     phone.classList.add('call-active');
     this.runCallTimer();
     log('Starting game')
-
-    // TODO: Don't start game until we have microphone permissions
   }
 
   pauseGame() {
@@ -152,7 +153,7 @@ class Game {
         this.skipNextTimeout = false;
         setTimeout(timeoutFn, 0); // Time out instantly
       } else {
-        setTimeout(timeoutFn, 3000); // Timeout
+        setTimeout(timeoutFn, 4000); // Timeout
       }
 
     };

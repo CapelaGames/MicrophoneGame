@@ -315,10 +315,18 @@ body.no-support #support-help {
 
 #phone.loading #loading-indicator {
   display: block;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 200px;
+  font-family: sans-serif;
 }
 
 #phone.loading #caller-details, #phone.loading #start, #phone.loading #pause {
   display: none;
+}
+
+#phone.loading {
+  background: black;
 }
 
 #phone.call-ended #start {

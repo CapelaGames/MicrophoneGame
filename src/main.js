@@ -124,7 +124,7 @@ library.add('03_inspector', new MessageNode(
     new Map([]),
     '04_two_things'
   ),
-  'startCall:inspector',
+  'startCall:inspector,skipTimeout',
 ));
 
 //
@@ -147,7 +147,7 @@ library.add('05_clean_and_safe', new MessageNode(
   new ResponseNode(
     new Map([
       [new ResponseOption(['no', 'not', 'nah', 'nup', 'nope']), '05B_cant_deal'],
-      [new ResponseOption(['yes', 'promise', 'yeah', 'yup']), '05A_thanks_boss'],
+      [new ResponseOption(['yes', 'promise', 'yeah', 'yup', 'won\'t', 'wont', 'won']), '05A_thanks_boss'],
     ]),
     '05B_cant_deal'
   )
@@ -182,14 +182,16 @@ library.add('06_good_inside', new MessageNode(
   new ResponseNode(
     new Map([]),
     '07IN_staff_or_camping'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('06_okay_great_INSIDE', new MessageNode(
   '06_okay_great',
   new ResponseNode(
     new Map([]),
     '07IN_staff_or_camping'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07IN_staff_or_camping', new MessageNode(
   '07IN_staff_or_camping',
@@ -206,21 +208,24 @@ library.add('07IN_staffroom', new MessageNode(
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07IN_tent', new MessageNode(
   '07IN_tent',
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07IN_tent_afternoresponse', new MessageNode(
   '07IN_tent_afternoresponse',
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 
 //
@@ -231,7 +236,8 @@ library.add('06_okay_great_OUTSIDE', new MessageNode(
   new ResponseNode(
     new Map([]),
     '07OUT_bin_or_kennel'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07OUT_bin_or_kennel', new MessageNode(
   '07OUT_bin_or_kennel',
@@ -248,21 +254,24 @@ library.add('07OUT_bin', new MessageNode(
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07OUT_kennel', new MessageNode(
   '07OUT_kennel',
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 library.add('07OUT_kennel_afternoresponse', new MessageNode(
   '07OUT_kennel_afternoresponse',
   new ResponseNode(
     new Map([]),
     '08_get_some_gear'
-  )
+  ),
+  'skipTimeout'
 ));
 
 
@@ -274,7 +283,8 @@ library.add('08_get_some_gear', new MessageNode(
   new ResponseNode(
     new Map([]),
     '09_inspector_coming_soon'
-  )
+  ),
+  'skipTimeout'
 ));
 
 
@@ -313,7 +323,7 @@ library.add('10A_no_mop', new MessageNode(
     new Map([]),
     '11_tea_or_coffee'
   ),
-  'scoreTest:1:lose'
+  'scoreTest:1:lose,skipTimeout'
 ));
 library.add('10B_no_bucket', new MessageNode(
   '10B_no_bucket',
@@ -321,7 +331,7 @@ library.add('10B_no_bucket', new MessageNode(
     new Map([]),
     '11_tea_or_coffee'
   ),
-  'scoreTest:1:win'
+  'scoreTest:1:win,skipTimeout'
 ));
 library.add('10C_no_water', new MessageNode(
   '10C_no_water',
@@ -329,7 +339,7 @@ library.add('10C_no_water', new MessageNode(
     new Map([]),
     '11_tea_or_coffee'
   ),
-  'scoreTest:1:lose'
+  'scoreTest:1:lose,skipTimeout'
 ));
 library.add('10D_no_soap', new MessageNode(
   '10D_no_soap',
@@ -337,7 +347,7 @@ library.add('10D_no_soap', new MessageNode(
     new Map([]),
     '11_tea_or_coffee'
   ),
-  'scoreTest:1:win'
+  'scoreTest:1:win,skipTimeout'
 ));
 library.add('10E_other', new MessageNode(
   '10E_other',
@@ -345,7 +355,7 @@ library.add('10E_other', new MessageNode(
     new Map([]),
     '11_tea_or_coffee'
   ),
-  'scoreTest:1:lose'
+  'scoreTest:1:lose,skipTimeout'
 ));
 
 
@@ -368,7 +378,7 @@ library.add('12_making_it_COFFEE', new MessageNode(
     new Map([]),
     '13B_made_some_coffee'
   ),
-  'scoreTest:2:win'
+  'scoreTest:2:win,skipTimeout'
 ));
 library.add('12_making_it_TEA', new MessageNode(
   '12_making_it',
@@ -376,7 +386,7 @@ library.add('12_making_it_TEA', new MessageNode(
     new Map([]),
     '13A_made_some_tea'
   ),
-  'scoreTest:2:lose'
+  'scoreTest:2:lose,skipTimeout'
 ));
 library.add('13A_made_some_tea', new MessageNode(
   '13A_made_some_tea',
