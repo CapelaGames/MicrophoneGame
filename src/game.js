@@ -114,6 +114,7 @@ class Game {
     this.gameStarted = false;
     document.body.classList.remove('phone-only');
     phone.classList.remove('call-active');
+    phone.classList.remove('call-ended');
     document.getElementById('call-info').textContent = '';
 
     for (let audio of document.querySelectorAll('audio')) {

@@ -168,7 +168,7 @@ library.add('05B_cant_deal', new MessageNode(
   '05B_cant_deal',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['outside', 'out']), '06_okay_great_OUTSIDE'],
+      [new ResponseOption(['outside', 'out', 'hot side']), '06_okay_great_OUTSIDE'],
       [new ResponseOption(['inside', 'in']), '06_okay_great_INSIDE'],
     ]),
     '06_good_inside'
@@ -310,7 +310,7 @@ library.add('10_what_should_i_ditch', new MessageNode(
   '10_what_should_i_ditch',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['mop']), '10A_no_mop'],
+      [new ResponseOption(['mop', 'mark']), '10A_no_mop'],
       [new ResponseOption(['bucket']), '10B_no_bucket'],
       [new ResponseOption(['water']), '10C_no_water'],
       [new ResponseOption(['soap']), '10D_no_soap'],
@@ -368,8 +368,8 @@ library.add('11_tea_or_coffee', new MessageNode(
   '11_tea_or_coffee',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['tea', 't', 'the']), '12_making_it_TEA'],
       [new ResponseOption(['coffee', 'beans', 'espresso', 'bean juice', 'brown water', 'cough']), '12_making_it_COFFEE'],
+      [new ResponseOption(['tea', 't', 'the', 'at', 'TAFE']), '12_making_it_TEA'],
     ]),
     '12_making_it_TEA'
   ),
