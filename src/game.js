@@ -122,6 +122,7 @@ class Game {
       if (playID === this.currentPlayID) {
         log('Response timed out');
         this.nextMessage('__default');
+        this.recognition.stop();
       }
     }
 
