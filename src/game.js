@@ -136,6 +136,10 @@ class Game {
         return;
       }
 
+      if (this.allOver) {
+        return;
+      }
+
       time += 1;
       let seconds = time % 60 < 10 ? `0${time % 60}` : `${time % 60}`;
       let minutes = Math.floor(time / 60 < 10) ? `0${Math.floor(time / 60)}` : `${Math.floor(time / 60)}`; // I was lazy I'm sorry
@@ -262,6 +266,7 @@ class Game {
   }
 
   hangUpForever() {
+    this.allOver = true;
     phone.classList.remove('call-active');
     phone.classList.add('call-ended');
 
