@@ -149,7 +149,7 @@ library.add('05_clean_and_safe', new MessageNode(
   new ResponseNode(
     new Map([
       [new ResponseOption(['no', 'not', 'nah', 'nup', 'nope']), '05B_cant_deal'],
-      [new ResponseOption(['yes', 'promise', 'yeah', 'yup', 'won\'t', 'wont', 'won']), '05A_thanks_boss'],
+      [new ResponseOption(['yes', 'promise', 'yeah', 'ya', 'yup', 'won\'t', 'wont', 'won']), '05A_thanks_boss'],
     ]),
     '05B_cant_deal'
   )
@@ -310,7 +310,7 @@ library.add('10_what_should_i_ditch', new MessageNode(
   '10_what_should_i_ditch',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['mop', 'mark']), '10A_no_mop'],
+      [new ResponseOption(['mop', 'mark', 'mob']), '10A_no_mop'],
       [new ResponseOption(['bucket']), '10B_no_bucket'],
       [new ResponseOption(['water']), '10C_no_water'],
       [new ResponseOption(['soap']), '10D_no_soap'],
@@ -368,8 +368,8 @@ library.add('11_tea_or_coffee', new MessageNode(
   '11_tea_or_coffee',
   new ResponseNode(
     new Map([
-      [new ResponseOption(['coffee', 'beans', 'espresso', 'bean juice', 'brown water', 'cough']), '12_making_it_COFFEE'],
-      [new ResponseOption(['tea', 't', 'the', 'at', 'TAFE']), '12_making_it_TEA'],
+      [new ResponseOption(['coffee', 'bean', 'espresso', 'bean juice', 'brown water', 'cough']), '12_making_it_COFFEE'],
+      [new ResponseOption(['tea', 't', 'at', 'TAFE']), '12_making_it_TEA'],
     ]),
     '12_making_it_TEA'
   ),

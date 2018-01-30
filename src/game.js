@@ -4,7 +4,7 @@ class Game {
     this.recognition = new SpeechRecognition();
     this.recognition.continuous = false;
     this.recognition.lang = 'en-AU';
-    this.recognition.interimResults = false;
+    this.recognition.interimResults = true;
     this.recognition.maxAlternatives = 1;
 
     this.ringingAudio = document.getElementById('00_phone');
@@ -171,14 +171,20 @@ class Game {
       if (playID === this.currentPlayID) {
         log('Response timed out');
         this.nextMessage('__default');
-        this.recognition.stop();
+      }
+    }
+
+    // Just before it finishes playing, start the recognition
+    audio.ontimeupdate = (event) => {
+      if (audio.currentTime > audio.duration - 0.5) {
+        this.recognition.start();
+        audio.timeupdate = () => {};
       }
     }
 
     // When the audio finishes playing
     audio.onended = (event) => {
       this.playingAudio = false;
-      this.recognition.start();
       audio.onended = () => {};
 
       if (this.skipNextTimeout) {
@@ -192,7 +198,13 @@ class Game {
     audio.play();
   }
 
+  isNonDefaultResponse(transcript) {
+    return this.currentMessage.isNonDefaultResponse(transcript);
+  }
+
   nextMessage(transcript) {
+    this.recognition.stop();
+
     let identifier = this.currentMessage.nextMessage(transcript);
     if (identifier == '__finish') {
       log('Game Over');
@@ -328,10 +340,12 @@ class Game {
 
   recognitionSpeechStart(event) {
     log('Speech Started');
+    this.speechFinished = false;
   }
 
   recognitionSpeechEnd(event) {
     log('Speech Ended');
+    this.speechFinished = true;
   }
 
   recognitionNoMatch(event) {
@@ -361,8 +375,11 @@ class Game {
     let transcript = event.results[last][0].transcript;
 
     log('Result:', transcript);
-
-    this.nextMessage(transcript);
-    this.recognition.stop();
+    log('Non default?', this.isNonDefaultResponse(transcript));
+    if (this.isNonDefaultResponse(transcript)) {
+      this.nextMessage(transcript);
+    } else if (this.speechFinished) {
+      this.nextMessage(transcript);
+    }
   }
 }
